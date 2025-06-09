@@ -1,5 +1,5 @@
-// Autor: Nedeljko Tesanovic
-// Opis: Testiranje dubine, Uklanjanje lica, Transformacije, Prostori i Projekcije
+// Autor: Davor Homa RA 47/2021
+// Specifikacija: Arena
 
 #define _CRT_SECURE_NO_WARNINGS
  
@@ -316,7 +316,7 @@ int main(void)
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
         if (rotate)
-            rotationAngle += rotationSpeed * deltaTime * 20.0f;
+            rotationAngle += rotationSpeed * deltaTime * 50.0f;
 
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         {
