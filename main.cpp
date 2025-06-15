@@ -10,12 +10,9 @@
 #include <GL/glew.h> 
 #include <GLFW/glfw3.h>
 
-//GLM biblioteke
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "Shape.h"
-#include "ShapeHelper.h"
 #include "FrameLimitter.h"
 #include "TextureLoader.h"
 
@@ -27,7 +24,6 @@ bool keyPressed[4] = { false, false, false, false };
 bool rotate = true;
 bool spacePressed = false;
 
-// Callback za tastaturu
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     int index = -1;
@@ -97,22 +93,8 @@ int main(void)
         return 3;
     }
 
-    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++ PROMJENLJIVE I BAFERI +++++++++++++++++++++++++++++++++++++++++++++++++
-
     unsigned int unifiedShader = createShader("basic.vert", "basic.frag");
     unsigned int signatureShader = createShader("signature.vert", "signature.frag");
-
-    float vertices[] =
-    {
-        //X    Y    Z       R    G    B    A
-        0.25, 0.5, 0.75,   1.0, 0.0, 0.0, 0.0, //Crveni trougao - Prednji
-       -0.25, 0.5, 0.75,   1.0, 0.0, 0.0, 0.0,
-        0.0, -0.5, 0.75,   1.0, 0.0, 0.0, 0.0,
-
-        0.25, -0.5, 0.0,   0.0, 0.0, 1.0, 0.0, //Plavi trougao - Zadnji
-       -0.25, -0.5, 0.0,   0.0, 0.0, 1.0, 0.0,
-        0.0,   0.5, 0.0,   0.0, 0.0, 1.0, 0.0
-    };
 
     glm::vec3 originalCubePositions[] =
     {
@@ -136,47 +118,47 @@ int main(void)
 
     float vertices3d[] = {
         // Back face
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, // Bottom-left
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right
-         0.5f, -0.5f, -0.5f,  1.0f, 0.0f, // bottom-right         
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, // bottom-left
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f, // top-left
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
         // Front face
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-right
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f, // top-right
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f, // top-right
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f, // top-left
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
         // Left face
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-right
-        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-left
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-left
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-left
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-right
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-right
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
         // Right face
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-left
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-right
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right         
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // bottom-right
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // top-left
-         0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-left     
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
         // Bottom face
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // top-right
-         0.5f, -0.5f, -0.5f,  1.0f, 1.0f, // top-left
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-left
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f, // bottom-left
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, // bottom-right
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f, // top-right
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
         // Top face
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f, // top-left
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // bottom-right
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f, // top-right     
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f, // bottom-right
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f, // top-left
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f  // bottom-left        
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f 
     };
 
     float signatureVertices[] = {
@@ -195,7 +177,6 @@ int main(void)
     glBindBuffer(GL_ARRAY_BUFFER, signatureVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(signatureVertices), signatureVertices, GL_STATIC_DRAW);
 
-    // Layout: position (2), texCoord (2)
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
@@ -215,29 +196,11 @@ int main(void)
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    /*unsigned int stride = (3 + 4) * sizeof(float); 
-    
-    unsigned int VAO;
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-
-    unsigned int VBO;
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, stride, (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);*/
-
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
     
     glUseProgram(signatureShader);
     unsigned signatureTexture = loadImageToTexture("signature-text.png", 0);
-
-    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++            UNIFORME            +++++++++++++++++++++++++++++++++++++++++++++++++
 
     glm::mat4 models[] = 
     {
@@ -247,28 +210,25 @@ int main(void)
         glm::mat4(1.0f)
     };
 
-    glm::mat4 model = glm::mat4(1.0f); //Matrica transformacija - mat4(1.0f) generise jedinicnu matricu
     unsigned int modelLoc = glGetUniformLocation(unifiedShader, "uM");
     
-    glm::mat4 view; //Matrica pogleda (kamere)
-    view = glm::lookAt(glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // lookAt(Gdje je kamera, u sta kamera gleda, jedinicni vektor pozitivne Y ose svijeta  - ovo rotira kameru)
+    glm::mat4 view;
+    view = glm::lookAt(glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     unsigned int viewLoc = glGetUniformLocation(unifiedShader, "uV");
     
     
-    glm::mat4 projectionP = glm::perspective(glm::radians(90.0f), (float)wWidth / (float)wHeight, 0.1f, 100.0f); //Matrica perspektivne projekcije (FOV, Aspect Ratio, prednja ravan, zadnja ravan)
-    glm::mat4 projectionO = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f); //Matrica ortogonalne projekcije (Lijeva, desna, donja, gornja, prednja i zadnja ravan)
+    glm::mat4 projectionP = glm::perspective(glm::radians(90.0f), (float)wWidth / (float)wHeight, 0.1f, 100.0f);
+    glm::mat4 projectionO = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f);
     unsigned int projectionLoc = glGetUniformLocation(unifiedShader, "uP");
 
 
-    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++ RENDER LOOP - PETLJA ZA CRTANJE +++++++++++++++++++++++++++++++++++++++++++++++++
-    glUseProgram(unifiedShader); //Slanje default vrijednosti uniformi
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); //(Adresa matrice, broj matrica koje saljemo, da li treba da se transponuju, pokazivac do matrica)
+    glUseProgram(unifiedShader);
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionO));
     glBindVertexArray(VAO);
 
     glClearColor(0.5, 0.5, 0.5, 1.0);
-    glCullFace(GL_BACK);//Biranje lica koje ce se eliminisati (tek nakon sto ukljucimo Face Culling)
+    glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
 
     for (int i = 0; i < 4; i++)
@@ -276,12 +236,6 @@ int main(void)
         models[i] = glm::translate(models[i], cubePositions[i]);
         models[i] = glm::scale(models[i], glm::vec3(0.5f, 0.5f, 0.5f));
     }
-
-    glm::mat4 model2 = glm::translate(model, cubePositions[1]);
-    //model = glm::translate(model, cubePositions[0]);
-
-    //model = glm::scale(model, glm::vec3(0.5, 0.5, 0.5));
-    model2 = glm::scale(model2, glm::vec3(0.5, 0.5, 0.5));
 
     const double FRAME_DURATION = 1.0 / 60.0;
     double lastTime = glfwGetTime();
@@ -323,17 +277,15 @@ int main(void)
             glfwSetWindowShouldClose(window, GL_TRUE);
         }
 
-        //Testiranje dubine
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         {
-            glEnable(GL_DEPTH_TEST); //Ukljucivanje testiranja Z bafera
+            glEnable(GL_DEPTH_TEST);
         }
         if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
         {
             glDisable(GL_DEPTH_TEST);
         }
 
-        //Odstranjivanje lica (Prethodno smo podesili koje lice uklanjamo sa glCullFace)
         if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
         {
             glEnable(GL_CULL_FACE);
@@ -343,7 +295,6 @@ int main(void)
             glDisable(GL_CULL_FACE);
         }
 
-        //Mijenjanje projekcija
         if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
         {
             glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionP));
@@ -352,32 +303,16 @@ int main(void)
         {
             glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionO));
         }
-        //Transformisanje trouglova
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        {
-            //model = glm::translate(model, glm::vec3(-0.01, 0.0, 0.0)); //Pomjeranje (Matrica transformacije, pomjeraj po XYZ)
-            model = glm::rotate(model, glm::radians(-0.05f), glm::vec3(0.0f, 1.0f, 0.0f)); //Rotiranje (Matrica transformacije, ugao rotacije u radijanima, osa rotacije)
-            //model = glm::scale(model, glm::vec3(0.99, 1.0, 1.0)); //Skaliranje (Matrica transformacije, skaliranje po XYZ)
-            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        }
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        {
-            //model = glm::translate(model, glm::vec3(0.01, 0.0, 0.0));
-            model = glm::rotate(model, glm::radians(0.05f), glm::vec3(0.0f, 1.0f, 0.0f));
-            //model = glm::scale(model, glm::vec3(1.1, 1.0, 1.0));
-            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        }
 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Osvjezavamo i Z bafer i bafer boje
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         glBindVertexArray(VAO);
 
         bool allCloseToCenter = true;
         for (int i = 0; i < 4; i++)
         {
-            cubePositions[i] += directions[i] * deltaTime * 20.0f; // brzina pomjeranja
+            cubePositions[i] += directions[i] * deltaTime * 20.0f;
 
-            //std::cout << cubePositions[0].x << std::endl;
             if (std::abs(cubePositions[0].x) > 1.0f)
                 allCloseToCenter = false;
 
@@ -406,9 +341,6 @@ int main(void)
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
-    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++ POSPREMANJE +++++++++++++++++++++++++++++++++++++++++++++++++
-
 
     glDeleteBuffers(1, &VBO);
     glDeleteVertexArrays(1, &VAO);

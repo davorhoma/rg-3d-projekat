@@ -143,8 +143,6 @@
   <ItemGroup>
     <ClCompile Include="FrameLimitter.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Shape.cpp" />
-    <ClCompile Include="ShapeHelper.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -156,8 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrameLimitter.h" />
-    <ClInclude Include="Shape.h" />
-    <ClInclude Include="ShapeHelper.h" />
     <ClInclude Include="TextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
