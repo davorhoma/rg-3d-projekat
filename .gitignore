@@ -13,9 +13,9 @@
 *.idb
 *.opendb
 *.ilk
-Debug/
-Release/
-x64/
+/Debug/
+/Release/
+/x64/
 *.cache
 *.db
 *.VC.db

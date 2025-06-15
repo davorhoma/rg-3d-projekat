@@ -1,0 +1,2 @@
+D:\Faks\7. Semestar\Racunarska grafika (RG)\Vezbe\V9\x64\Debug\glew32.dll
+D:\Faks\7. Semestar\Racunarska grafika (RG)\Vezbe\Projekat3d\x64\Debug\glew32.dll
